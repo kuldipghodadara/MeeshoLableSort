@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courier Master - Client Side</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+    <style>
+        :root { --primary: #6366f1; --bg: #f8fafc; --success: #22c55e; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); padding: 20px; color: #1e293b; }
+        .container { max-width: 700px; margin: 0 auto; background: white; padding: 30px; border-radius: 24px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        .drop-zone { border: 2px dashed #cbd5e1; padding: 40px; border-radius: 16px; text-align: center; cursor: pointer; margin-bottom: 20px; transition: 0.3s; display: block; }
+        .drop-zone.dragover { border-color: var(--primary); background: #f5f3ff; }
+        .btn { display: inline-block; width: 100%; padding: 14px; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; text-decoration: none; text-align: center; font-size: 16px; margin-top: 10px; transition: 0.2s; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:disabled { background: #cbd5e1; cursor: not-allowed; }
+        .stats-row { display: flex; gap: 15px; margin-bottom: 20px; }
+        .stat-card { flex: 1; padding: 15px; background: #f1f5f9; border-radius: 12px; text-align: center; }
+        .stat-card span { display: block; font-size: 24px; font-weight: 700; color: var(--primary); }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        tr.top-row { background-color: #f0fdf4; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 100; padding: 20px; }
+        .modal-content { background: white; height: 100%; border-radius: 12px; overflow: hidden; position: relative; }
+        #resultsArea { display: none; }
+        .loading-spinner { display: none; text-align: center; margin: 10px 0; font-weight: 600; color: var(--primary); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="text-align: center; margin-bottom: 30px;">🚚 Courier Master Tool</h1>
+        
+        <div id="uploadSection">
+            <label class="drop-zone" id="dropZone">
+                <input type="file" id="fileInput" accept=".pdf" multiple style="display:none">
+                <div style="font-size: 40px;">📂</div>
+                <div id="fileText">Drag & Drop Meesho PDFs or Click to Browse</div>
+                <div id="fileList" style="font-size: 12px; color: #64748b; margin-top: 10px; text-align: left;"></div>
+            </label>
+
+            <div style="text-align: center; margin-bottom: 20px;">
+                <input type="checkbox" id="crop_pdf">
+                <label for="crop_pdf" style="font-weight: 600; cursor: pointer;">✂️ Crop for 100mm Printer</label>
+            </div>
+
+            <button onclick="processFiles()" id="processBtn" class="btn btn-primary">Process All Files</button>
+            <div id="loading" class="loading-spinner">Processing PDFs... This may take a moment.</div>
+        </div>
+
+        <div id="resultsArea">
+            <hr style="margin: 30px 0; border: 0; border-top: 1px solid #e2e8f0;">
+            <div class="stats-row">
+                <div class="stat-card">Total Labels <span id="statTotal">0</span></div>
+                <div class="stat-card">Qty > 1 <span id="statQty">0</span></div>
+            </div>
+
+            <h3>📦 Courier Breakdown</h3>
+            <table id="courierTable">
+                <thead><tr><th>Courier Partner</th><th>Order Count</th></tr></thead>
+                <tbody></tbody>
+            </table>
+
+            <div style="margin-top: 25px;">
+                <button onclick="openPreview()" class="btn" style="background: #e2e8f0; color: #1e293b;">👁️ Preview High Qty</button>
+                <button onclick="downloadFinal()" class="btn" style="background: var(--success); color: white;">📥 Download Sorted Labels</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="pModal" onclick="this.style.display='none'">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <iframe id="pFrame" style="width:100%; height:100%; border:none;"></iframe>
+        </div>
+    </div>
+
+    <script>
+        // Set worker path for PDF.js
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        const MM_TO_PT = 6;
+        const LABEL_PT = 100 * MM_TO_PT;
+        const COURIER_MAP = {
+            "delhivery": "Delhivery",
+            "xpress": "Xpressbees",
+            "shadowfax": "Shadowfax",
+            "ecom": "Ecom Express",
+            "ekart": "Ekart Logistics",
+            "valmo": "Valmo"
+        };
+
+        let container = new DataTransfer();
+        let processedBlobs = { full: null, prev: null };
+
+        // --- File Upload UI Logic ---
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+
+        function updateUI() {
+            document.getElementById('fileText').innerHTML = `<strong>${container.files.length} Files Selected</strong>`;
+            document.getElementById('fileList').innerHTML = Array.from(container.files).map(f => `• ${f.name}`).join('<br>');
+        }
+
+        ['dragover', 'drop'].forEach(e => dropZone.addEventListener(e, ev => {
+            ev.preventDefault();
+            if (e === 'drop') {
+                for (let f of ev.dataTransfer.files) container.items.add(f);
+                updateUI();
+            }
+        }));
+
+        fileInput.addEventListener('change', () => {
+            for (let f of fileInput.files) container.items.add(f);
+            updateUI();
+        });
+
+        // --- PDF Processing Logic ---
+        async function processFiles() {
+            const btn = document.getElementById('processBtn');
+            const loader = document.getElementById('loading');
+            
+            if (container.files.length === 0) return alert("Please select files first");
+
+            btn.disabled = true;
+            loader.style.display = "block";
+
+            try {
+                const cropEnabled = document.getElementById('crop_pdf').checked;
+                const stats = { total: 0, qty_gt_1: 0, couriers: {} };
+                const allPagesMeta = [];
+
+                // Temporary master document to hold all un-sorted pages
+                const tempDoc = await PDFLib.PDFDocument.create();
+
+                for (let file of container.files) {
+                    const originalBuffer = await file.arrayBuffer();
+                    
+                    // Create copies to prevent "detached ArrayBuffer" errors
+                    const bufferForPdfJs = originalBuffer.slice(0);
+                    const bufferForPdfLib = originalBuffer.slice(0);
+                    
+                    const pdfjsDoc = await pdfjsLib.getDocument({ data: bufferForPdfJs }).promise;
+                    const srcDoc = await PDFLib.PDFDocument.load(bufferForPdfLib);
+
+                    for (let i = 0; i < pdfjsDoc.numPages; i++) {
+                        const page = await pdfjsDoc.getPage(i + 1);
+                        const textContent = await page.getTextContent();
+                        const textStr = textContent.items.map(item => item.str).join(' ').toLowerCase();
+
+                        // Detect Courier Partner
+                        let courier = "Other";
+                        for (let key in COURIER_MAP) {
+                            if (textStr.includes(key)) { courier = COURIER_MAP[key]; break; }
+                        }
+
+                        // Detect Quantity > 1 (Risky Orders)
+                        let isRisky = false;
+                        const items = textContent.items;
+                        for (let j = 0; j < items.length; j++) {
+                            if (items[j].str.toLowerCase().includes('qty')) {
+                                const potentialVal = items[j+1] ? items[j+1].str.trim() : "";
+                                const val = parseInt(potentialVal);
+                                if (!isNaN(val) && val > 1) {
+                                    isRisky = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        // Copy page to temp master
+                        const [copiedPage] = await tempDoc.copyPages(srcDoc, [i]);
+                        
+                        if (isRisky) stats.qty_gt_1++;
+
+                        // Handle Cropping
+                        if (cropEnabled) {
+                            const { width, height } = copiedPage.getSize();
+                            copiedPage.setCropBox(0, height - LABEL_PT, width, LABEL_PT);
+                        }
+
+                        const newIdx = tempDoc.getPageCount();
+                        tempDoc.addPage(copiedPage);
+                        allPagesMeta.push({ index: newIdx, courier, risky: isRisky });
+                        
+                        stats.total++;
+                        stats.couriers[courier] = (stats.couriers[courier] || 0) + 1;
+                    }
+                }
+
+                // Sort metadata by Courier Name
+                allPagesMeta.sort((a, b) => a.courier.localeCompare(b.courier));
+                
+                const finalDoc = await PDFLib.PDFDocument.create();
+                const prevDoc = await PDFLib.PDFDocument.create();
+
+                // Assemble the final sorted PDF and the Preview PDF
+                for (let item of allPagesMeta) {
+                    const [pFinal] = await finalDoc.copyPages(tempDoc, [item.index]);
+                    finalDoc.addPage(pFinal);
+                    
+                    if (item.risky) {
+                        const [pPrev] = await prevDoc.copyPages(tempDoc, [item.index]);
+                        prevDoc.addPage(pPrev);
+                    }
+                }
+
+                // Empty state for preview
+                if (prevDoc.getPageCount() === 0) {
+                    const page = prevDoc.addPage([400, 200]);
+                    page.drawText("No High Quantity Labels Found", { x: 50, y: 100, size: 15 });
+                }
+
+                // Save as Blobs
+                const finalBytes = await finalDoc.save();
+                const prevBytes = await prevDoc.save();
+                processedBlobs.full = new Blob([finalBytes], { type: 'application/pdf' });
+                processedBlobs.prev = new Blob([prevBytes], { type: 'application/pdf' });
+
+                displayResults(stats);
+            } catch (err) {
+                console.error(err);
+                alert("Error processing PDFs: " + err.message);
+            } finally {
+                btn.disabled = false;
+                loader.style.display = "none";
+            }
+        }
+
+        function displayResults(stats) {
+            document.getElementById('resultsArea').style.display = 'block';
+            document.getElementById('statTotal').innerText = stats.total;
+            document.getElementById('statQty').innerText = stats.qty_gt_1;
+
+            const tbody = document.querySelector('#courierTable tbody');
+            tbody.innerHTML = Object.entries(stats.couriers)
+                .sort((a, b) => b[1] - a[1])
+                .map(([name, count], i) => `
+                    <tr class="${i === 0 ? 'top-row' : ''}">
+                        <td><strong>${name}</strong></td>
+                        <td>${count}</td>
+                    </tr>
+                `).join('');
+        }
+
+        function downloadFinal() {
+            if (!processedBlobs.full) return;
+            const url = URL.createObjectURL(processedBlobs.full);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = "Sorted_Labels.pdf";
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function openPreview() {
+            if (!processedBlobs.prev) return;
+            const url = URL.createObjectURL(processedBlobs.prev);
+            document.getElementById('pFrame').src = url;
+            document.getElementById('pModal').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
