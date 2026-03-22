@@ -17,53 +17,60 @@
         
         /* Navigation */
         nav { background: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
-        .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.2rem; color: var(--primary); cursor: pointer; }
+        .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.2rem; color: var(--primary); }
         .nav-links { display: flex; gap: 20px; }
-        .nav-links a { text-decoration: none; color: #64748b; font-weight: 600; cursor: pointer; transition: 0.3s; padding: 5px 10px; border-radius: 8px; }
-        .nav-links a:hover, .nav-links a.active { color: var(--primary); background: #f1f5f9; }
+        .nav-links a { text-decoration: none; color: #64748b; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
 
-        /* Main Routing Container */
-        main { flex: 1; width: 100%; max-width: 900px; margin: 0 auto; padding: 20px; }
-        .route-view { display: none; animation: fadeIn 0.3s ease; }
-        .active-route { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        /* Content Area */
+        main { flex: 1; }
+        .page { display: none; max-width: 900px; margin: 40px auto; padding: 0 20px; animation: fadeIn 0.4s ease; }
+        .active-page { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .card { background: white; padding: 30px; border-radius: 24px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); margin-bottom: 20px; }
         
-        /* Tool Grid */
-        .tool-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
+        /* Tool Cards */
+        .tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; }
         .tool-card { background: white; padding: 30px; border-radius: 20px; text-align: center; border: 2px solid transparent; transition: 0.3s; cursor: pointer; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
         .tool-card:hover { border-color: var(--primary); transform: translateY(-5px); }
         .tool-card i { font-size: 40px; color: var(--primary); margin-bottom: 15px; }
 
-        /* Components */
-        .drop-zone { border: 2px dashed #cbd5e1; padding: 40px; border-radius: 16px; text-align: center; cursor: pointer; margin-bottom: 20px; display: block; }
+        /* Uploader */
+        .drop-zone { border: 2px dashed #cbd5e1; padding: 40px; border-radius: 16px; text-align: center; cursor: pointer; margin-bottom: 20px; display: block; transition: 0.2s; }
+        .drop-zone:hover { border-color: var(--primary); background: #f1f5f9; }
         .btn { display: inline-block; width: 100%; padding: 14px; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; text-align: center; transition: 0.2s; font-size: 16px; text-decoration: none; }
         .btn-primary { background: var(--primary); color: white; }
         .btn-success { background: var(--success); color: white; }
         .btn-whatsapp { background: #25D366; color: white; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        
+        /* Results */
+        .stat-card { max-width: 300px; margin: 0 auto; padding: 15px; background: #f1f5f9; border-radius: 12px; text-align: center; }
+        .stat-card span { display: block; font-size: 24px; font-weight: 700; color: var(--primary); }
 
-        /* Global Download Section */
-        .global-download-box { width: 100%; max-width: 900px; margin: 20px auto 40px; padding: 0 20px; }
-        .download-app-card { background: #1e293b; color: white; padding: 30px; border-radius: 24px; text-align: center; }
-        .btn-white { background: white; color: #1e293b; width: auto; padding: 12px 35px; margin-top: 15px; display: inline-block; }
+        /* GLOBAL WINDOWS DOWNLOAD SECTION */
+        .global-download-box { max-width: 900px; margin: 20px auto 40px; padding: 0 20px; width: 100%; }
+        .download-app-card { background: #1e293b; color: white; padding: 30px; border-radius: 24px; text-align: center; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2); }
+        .download-app-card h4 { font-size: 1.5rem; margin-bottom: 10px; }
+        .btn-white { background: white; color: #1e293b; width: auto; padding: 12px 35px; margin-top: 15px; }
+        .btn-white:hover { background: #e2e8f0; }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo" onclick="navigateTo('home')">
+        <div class="logo">
             CourierMaster
         </div>
         <div class="nav-links">
-            <a onclick="navigateTo('home')" id="nav-home">Home</a>
-            <a onclick="navigateTo('about')" id="nav-about">About</a>
-            <a onclick="navigateTo('help')" id="nav-help">Help</a>
+            <a onclick="showPage('home')" id="link-home" class="active">Home</a>
+            <a onclick="showPage('about')" id="link-about">About</a>
+            <a onclick="showPage('help')" id="link-help">Help</a>
         </div>
     </nav>
 
     <main>
-        <div id="route-home" class="route-view active-route">
+        <div id="home" class="page active-page">
             <div style="text-align: center; margin-bottom: 40px;">
                 <h1>E-commerce Label Solutions</h1>
                 <p style="color: #64748b;">Fast, Secure, and Professional Label Cropping</p>
@@ -73,9 +80,9 @@
                 <h3>Optimize Your Dispatch Workflow</h3>
                 <p>Convert standard A4 shipping labels into thermal-printer-ready 4x4 labels in seconds. Our tool automatically removes courier sorting pages to save you time and paper.</p>
             </div>
-            
+
             <div class="tool-grid">
-                <div class="tool-card" onclick="navigateTo('meesho')">
+                <div class="tool-card" onclick="showPage('meesho')">
                     <i class="fas fa-shopping-bag"></i>
                     <h3>Meesho Crop</h3>
                     <p>Crop 4x4 & Auto-Clean PDF</p>
@@ -88,34 +95,36 @@
             </div>
         </div>
 
-        <div id="route-meesho" class="route-view">
+        <div id="meesho" class="page">
             <div class="card">
-                <button onclick="navigateTo('home')" style="background:none; border:none; color: var(--primary); cursor:pointer; margin-bottom: 15px; font-weight: 600;">← Back to Home</button>
+                <button onclick="showPage('home')" style="background:none; border:none; color: var(--primary); cursor:pointer; margin-bottom: 10px; font-weight: 600;">← Back to Home</button>
                 <h2>Meesho Label Cropper</h2>
                 <p style="margin-bottom: 20px; color: #64748b;">Drag and drop your Meesho label PDF. We will crop it to 4x4 size and remove courier sorting pages automatically.</p>
                 
-                <label class="drop-zone">
+                <label class="drop-zone" id="dropZone">
                     <input type="file" id="fileInput" accept=".pdf" multiple style="display:none">
                     <div style="font-size: 40px;">📂</div>
                     <div id="fileText" style="font-weight: 600;">Drag & Drop Meesho PDFs</div>
+                    <div id="fileList" style="font-size: 12px; color: #64748b; margin-top: 10px; text-align: left;"></div>
                 </label>
 
                 <button onclick="processFiles()" id="processBtn" class="btn btn-primary">Crop & Clean PDF</button>
                 <div id="loading" style="display:none; text-align: center; margin-top: 15px; color: var(--primary); font-weight: 600;">
-                    <i class="fas fa-spinner fa-spin"></i> Processing Labels...
+                    <i class="fas fa-circle-notch fa-spin"></i> Processing Labels...
                 </div>
             </div>
 
             <div id="resultsArea" style="display:none;" class="card">
-                <h3 style="text-align: center;">Processing Complete</h3>
-                <div style="text-align:center; padding: 15px; background: #f1f5f9; border-radius: 12px; margin: 15px 0;">
-                    Labels Processed: <span id="statTotal" style="font-weight:700; color: var(--primary); font-size: 1.2rem;">0</span>
+                <h3 style="text-align: center; margin-bottom: 15px;">Processing Complete</h3>
+                <div class="stat-card">
+                    Labels Processed 
+                    <span id="statTotal">0</span>
                 </div>
-                <button onclick="downloadFinal()" class="btn btn-success">📥 Download Cropped PDF</button>
+                <button onclick="downloadFinal()" class="btn btn-success" style="margin-top: 20px;">📥 Download Cropped PDF</button>
             </div>
         </div>
 
-        <div id="route-about" class="route-view">
+        <div id="about" class="page">
             <div class="card">
                 <h2>About Courier Master</h2>
                 <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
@@ -125,18 +134,18 @@
             </div>
         </div>
 
-        <div id="route-help" class="route-view">
+        <div id="help" class="page">
             <div class="card" style="text-align: center;">
                 <h2>Support & Contact</h2>
                 <p style="margin-bottom: 30px; color: #64748b;">Need help with the tool or have a feature request?</p>
                 
                 <div style="margin-bottom: 25px; line-height: 2;">
-                    <p><i class="fas fa-envelope"></i> <strong>Email:</strong> kggodadara@gmail.com</p>
+                    <p><i class="fas fa-envelope"></i> <strong>Email:</strong> kgghodadara@gmail.com</p>
                     <p><i class="fas fa-phone-alt"></i> <strong>Phone:</strong> +91 7623922532</p>
                 </div>
 
-                <a href="https://wa.me/7623922532" class="btn btn-whatsapp" target="_blank">
-                    <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+                <a href="https://wa.me/917623922532" class="btn btn-whatsapp" target="_blank">
+                    <i class="fab fa-whatsapp" style="font-size: 1.2rem;"></i> Chat on WhatsApp
                 </a>
             </div>
         </div>
@@ -145,59 +154,52 @@
     <section class="global-download-box">
         <div class="download-app-card">
             <h4>🚀 Get the Desktop Version</h4>
-            <p style="opacity: 0.9; font-size: 0.95rem; margin-top: 10px;">
-                Download our Windows App for offline processing anBatch Processing, Courier-wise Sorting, and [Qty > 1] Highlighting.
+            <p style="opacity: 0.9; font-size: 0.95rem;">
+Download our Windows App for offline processing anBatch Processing, Courier-wise Sorting, and [Qty > 1] Highlighting.
             </p>
             <a href="#" class="btn btn-white">Download for Windows</a>
         </div>
     </section>
 
     <script>
-        // ROUTER SYSTEM
-        function navigateTo(routeId, pushState = true) {
-            // Update UI
-            document.querySelectorAll('.route-view').forEach(view => view.classList.remove('active-route'));
-            document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
-
-            const targetView = document.getElementById('route-' + routeId);
-            if(targetView) targetView.classList.add('active-route');
+        // NAVIGATION LOGIC
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
             
-            const targetNav = document.getElementById('nav-' + routeId);
-            if(targetNav) targetNav.classList.add('active');
-
-            // Update URL bar
-            if (pushState) {
-                const urlPath = routeId === 'home' ? '/index.html' : `/index.html/${routeId}`;
-                window.history.pushState({routeId}, '', urlPath);
-            }
+            document.getElementById(pageId).classList.add('active-page');
+            const link = document.getElementById('link-' + pageId);
+            if(link) link.classList.add('active');
             window.scrollTo(0,0);
         }
 
-        // Handle browser back button
-        window.onpopstate = (e) => {
-            if (e.state && e.state.routeId) navigateTo(e.state.routeId, false);
-            else navigateTo('home', false);
-        };
-
-        // PDF PROCESSING
+        // PDF PROCESSING LOGIC
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        const MM_TO_PT = 6;
+        const LABEL_PT = 100 * MM_TO_PT;
         let container = new DataTransfer();
         let finalBlob = null;
 
-        document.getElementById('fileInput').addEventListener('change', (e) => {
-            for (let f of e.target.files) container.items.add(f);
+        const fileInput = document.getElementById('fileInput');
+        fileInput.addEventListener('change', () => {
+            for (let f of fileInput.files) container.items.add(f);
             document.getElementById('fileText').innerHTML = `<strong>${container.files.length} Files Selected</strong>`;
         });
 
         async function processFiles() {
-            if (container.files.length === 0) return alert("Select files first");
+            if (container.files.length === 0) return alert("Please select files first");
             const btn = document.getElementById('processBtn');
             const loader = document.getElementById('loading');
-            btn.disabled = true; loader.style.display = "block";
+            const results = document.getElementById('resultsArea');
+            
+            btn.disabled = true;
+            loader.style.display = "block";
+            results.style.display = "none";
 
             try {
                 const finalDoc = await PDFLib.PDFDocument.create();
-                let total = 0;
+                let totalLabels = 0;
+
                 for (let file of container.files) {
                     const buffer = await file.arrayBuffer();
                     const pdfjsDoc = await pdfjsLib.getDocument({ data: buffer.slice(0) }).promise;
@@ -206,41 +208,46 @@
                     for (let i = 0; i < pdfjsDoc.numPages; i++) {
                         const page = await pdfjsDoc.getPage(i + 1);
                         const textContent = await page.getTextContent();
-                        const text = textContent.items.map(s => s.str).join(' ').toLowerCase();
-                        
-                        if (!text.includes("order") && !text.includes("id")) continue;
+                        const textStr = textContent.items.map(item => item.str).join(' ').toLowerCase();
 
+                        // REMOVE SORTING: Skip pages that don't have label identifiers
+                        if (!textStr.includes("order") && !textStr.includes("id")) continue;
+
+                        // CROP & COPY
                         const [copiedPage] = await finalDoc.copyPages(srcDoc, [i]);
                         const { width, height } = copiedPage.getSize();
-                        // Crop logic (approx 100mm height from top)
-                        copiedPage.setCropBox(0, height - 600, width, 600);
+                        copiedPage.setCropBox(0, height - LABEL_PT, width, LABEL_PT);
                         finalDoc.addPage(copiedPage);
-                        total++;
+                        totalLabels++;
                     }
                 }
-                if (total > 0) {
-                    finalBlob = new Blob([await finalDoc.save()], { type: 'application/pdf' });
-                    document.getElementById('statTotal').innerText = total;
-                    document.getElementById('resultsArea').style.display = 'block';
+
+                if (totalLabels === 0) {
+                    alert("No valid labels found in the selected files.");
+                } else {
+                    const finalBytes = await finalDoc.save();
+                    finalBlob = new Blob([finalBytes], { type: 'application/pdf' });
+                    document.getElementById('statTotal').innerText = totalLabels;
+                    results.style.display = 'block';
                 }
-            } catch (err) { alert(err.message); }
-            finally { btn.disabled = false; loader.style.display = "none"; }
+
+            } catch (err) {
+                alert("Error: " + err.message);
+            } finally {
+                btn.disabled = false;
+                loader.style.display = "none";
+            }
         }
 
         function downloadFinal() {
             if (!finalBlob) return;
+            const url = URL.createObjectURL(finalBlob);
             const a = document.createElement('a');
-            a.href = URL.createObjectURL(finalBlob);
-            a.download = "Cropped_Labels.pdf";
+            a.href = url;
+            a.download = "Cropped_Meesho_Labels.pdf";
             a.click();
+            URL.revokeObjectURL(url);
         }
-
-        // Initialize based on URL segment
-        window.onload = () => {
-            const segment = window.location.pathname.split('/').pop();
-            const valid = ['home', 'meesho', 'about', 'help'];
-            navigateTo(valid.includes(segment) ? segment : 'home', false);
-        };
     </script>
 </body>
 </html>
