@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Courier Master - E-commerce Solutions</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/jpeg" href="download.jpg">
+        <link rel="icon" type="image/jpeg" href="download.jpg">
+
     <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -15,14 +16,12 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
         
-        /* Navigation */
         nav { background: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.2rem; color: var(--primary); }
         .nav-links { display: flex; gap: 20px; }
         .nav-links a { text-decoration: none; color: #64748b; font-weight: 600; cursor: pointer; transition: 0.3s; }
         .nav-links a:hover, .nav-links a.active { color: var(--primary); }
 
-        /* Content Area */
         main { flex: 1; }
         .page { display: none; max-width: 900px; margin: 40px auto; padding: 0 20px; animation: fadeIn 0.4s ease; }
         .active-page { display: block; }
@@ -30,38 +29,32 @@
 
         .card { background: white; padding: 30px; border-radius: 24px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); margin-bottom: 20px; }
         
-        /* Tool Cards */
         .tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; }
         .tool-card { background: white; padding: 30px; border-radius: 20px; text-align: center; border: 2px solid transparent; transition: 0.3s; cursor: pointer; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
         .tool-card:hover { border-color: var(--primary); transform: translateY(-5px); }
         .tool-card i { font-size: 40px; color: var(--primary); margin-bottom: 15px; }
 
-        /* Uploader */
-        .drop-zone { border: 2px dashed #cbd5e1; padding: 40px; border-radius: 16px; text-align: center; cursor: pointer; margin-bottom: 20px; display: block; transition: 0.2s; }
+        .drop-zone { border: 2px dashed #cbd5e1; padding: 40px; border-radius: 16px; text-align: center; cursor: pointer; margin-bottom: 20px; transition: 0.2s; position: relative; }
         .drop-zone:hover { border-color: var(--primary); background: #f1f5f9; }
+        
         .btn { display: inline-block; width: 100%; padding: 14px; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; text-align: center; transition: 0.2s; font-size: 16px; text-decoration: none; }
         .btn-primary { background: var(--primary); color: white; }
         .btn-success { background: var(--success); color: white; }
         .btn-whatsapp { background: #25D366; color: white; display: flex; align-items: center; justify-content: center; gap: 10px; }
         
-        /* Results */
         .stat-card { max-width: 300px; margin: 0 auto; padding: 15px; background: #f1f5f9; border-radius: 12px; text-align: center; }
         .stat-card span { display: block; font-size: 24px; font-weight: 700; color: var(--primary); }
 
-        /* GLOBAL WINDOWS DOWNLOAD SECTION */
         .global-download-box { max-width: 900px; margin: 20px auto 40px; padding: 0 20px; width: 100%; }
         .download-app-card { background: #1e293b; color: white; padding: 30px; border-radius: 24px; text-align: center; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2); }
         .download-app-card h4 { font-size: 1.5rem; margin-bottom: 10px; }
         .btn-white { background: white; color: #1e293b; width: auto; padding: 12px 35px; margin-top: 15px; }
-        .btn-white:hover { background: #e2e8f0; }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo">
-            CourierMaster
-        </div>
+        <div class="logo">TechKey Seller Desk</div>
         <div class="nav-links">
             <a onclick="showPage('home')" id="link-home" class="active">Home</a>
             <a onclick="showPage('about')" id="link-about">About</a>
@@ -75,19 +68,26 @@
                 <h1>E-commerce Label Solutions</h1>
                 <p style="color: #64748b;">Fast, Secure, and Professional Label Cropping</p>
             </div>
+            
+            <section class="global-download-box">
+                <div class="download-app-card">
+                    <h4>🚀 Get the Desktop Version</h4>
+                    <p style="opacity: 0.9; font-size: 0.95rem;">Download Windows App for Offline Processing, Sorting, and Highlighting.</p>
+                    <a href="https://www.dropbox.com/scl/fi/78c5esy9hxyx8ewzlv5f5/TechKey-Seller-Desk-1.0.0.exe?rlkey=ew99xaxyd37207jma20s97lyk&e=1&st=v3auaz5s&dl=1" target="_blank" class="btn btn-white">Download for Windows</a>
+                </div>
+            </section>
 
-            <div class="card">
+             <div class="card">
                 <h3>Optimize Your Dispatch Workflow</h3>
                 <p>Convert standard A4 shipping labels into thermal-printer-ready 4x4 labels in seconds. Our tool automatically removes courier sorting pages to save you time and paper.</p>
             </div>
-
             <div class="tool-grid">
                 <div class="tool-card" onclick="showPage('meesho')">
                     <i class="fas fa-shopping-bag"></i>
                     <h3>Meesho Crop</h3>
                     <p>Crop 4x4 & Auto-Clean PDF</p>
                 </div>
-                <div class="tool-card" onclick="alert('Flipkart Cropping is coming in the next update!')">
+                <div class="tool-card" onclick="alert('Flipkart Cropping is coming soon!')">
                     <i class="fas fa-truck"></i>
                     <h3>Flipkart Crop</h3>
                     <p>Coming Soon</p>
@@ -99,14 +99,14 @@
             <div class="card">
                 <button onclick="showPage('home')" style="background:none; border:none; color: var(--primary); cursor:pointer; margin-bottom: 10px; font-weight: 600;">← Back to Home</button>
                 <h2>Meesho Label Cropper</h2>
-                <p style="margin-bottom: 20px; color: #64748b;">Drag and drop your Meesho label PDF. We will crop it to 4x4 size and remove courier sorting pages automatically.</p>
+                <p style="margin-bottom: 20px; color: #64748b;">Process your Meesho label PDF safely in your browser.</p>
                 
-                <label class="drop-zone" id="dropZone">
+                <div class="drop-zone" id="dropZone">
                     <input type="file" id="fileInput" accept=".pdf" multiple style="display:none">
                     <div style="font-size: 40px;">📂</div>
-                    <div id="fileText" style="font-weight: 600;">Drag & Drop Meesho PDFs</div>
-                    <div id="fileList" style="font-size: 12px; color: #64748b; margin-top: 10px; text-align: left;"></div>
-                </label>
+                    <div id="fileText" style="font-weight: 600;">Drag & Drop Meesho PDFs or Click</div>
+                    <div id="fileList" style="font-size: 13px; color: #64748b; margin-top: 15px; text-align: left;"></div>
+                </div>
 
                 <button onclick="processFiles()" id="processBtn" class="btn btn-primary">Crop & Clean PDF</button>
                 <div id="loading" style="display:none; text-align: center; margin-top: 15px; color: var(--primary); font-weight: 600;">
@@ -116,10 +116,7 @@
 
             <div id="resultsArea" style="display:none;" class="card">
                 <h3 style="text-align: center; margin-bottom: 15px;">Processing Complete</h3>
-                <div class="stat-card">
-                    Labels Processed 
-                    <span id="statTotal">0</span>
-                </div>
+                <div class="stat-card">Labels Processed <span id="statTotal">0</span></div>
                 <button onclick="downloadFinal()" class="btn btn-success" style="margin-top: 20px;">📥 Download Cropped PDF</button>
             </div>
         </div>
@@ -128,126 +125,207 @@
             <div class="card">
                 <h2>About Courier Master</h2>
                 <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
-                <p>Courier Master is a local-first web utility designed for Indian e-commerce sellers. We focus on making shipping label preparation fast and cost-effective.</p>
-                <br>
-                <p><strong>Privacy First:</strong> Your PDF files are processed directly in your web browser. We never upload your sensitive customer data to any server.</p>
+                <p>Courier Master is a local-first web utility for Indian sellers. All processing happens in your browser for 100% privacy.</p>
             </div>
+              <section class="global-download-box">
+                <div class="download-app-card">
+                    <h4>🚀 Get the Desktop Version</h4>
+                    <p style="opacity: 0.9; font-size: 0.95rem;">Download Windows App for Offline Processing, Sorting, and Highlighting.</p>
+                    <a href="https://www.dropbox.com/scl/fi/78c5esy9hxyx8ewzlv5f5/TechKey-Seller-Desk-1.0.0.exe?rlkey=ew99xaxyd37207jma20s97lyk&e=1&st=v3auaz5s&dl=1" target="_blank" class="btn btn-white">Download for Windows</a>
+                </div>
+            </section>
         </div>
 
         <div id="help" class="page">
             <div class="card" style="text-align: center;">
                 <h2>Support & Contact</h2>
-                <p style="margin-bottom: 30px; color: #64748b;">Need help with the tool or have a feature request?</p>
-                
-                <div style="margin-bottom: 25px; line-height: 2;">
-                    <p><i class="fas fa-envelope"></i> <strong>Email:</strong> kgghodadara@gmail.com</p>
-                    <p><i class="fas fa-phone-alt"></i> <strong>Phone:</strong> +91 7623922532</p>
+                <p style="margin-bottom: 30px; color: #64748b;">Need help?</p>
+                <div style="margin-bottom: 25px;">
+                    <p><strong>Email:</strong> kgghodadara@gmail.com</p>
+                    <p><strong>Phone:</strong> +91 7623922532</p>
                 </div>
-
                 <a href="https://wa.me/917623922532" class="btn btn-whatsapp" target="_blank">
-                    <i class="fab fa-whatsapp" style="font-size: 1.2rem;"></i> Chat on WhatsApp
+                    <i class="fab fa-whatsapp"></i> Chat on WhatsApp
                 </a>
             </div>
+              <section class="global-download-box">
+                <div class="download-app-card">
+                    <h4>🚀 Get the Desktop Version</h4>
+                    <p style="opacity: 0.9; font-size: 0.95rem;">Download Windows App for Offline Processing, Sorting, and Highlighting.</p>
+                    <a href="https://www.dropbox.com/scl/fi/78c5esy9hxyx8ewzlv5f5/TechKey-Seller-Desk-1.0.0.exe?rlkey=ew99xaxyd37207jma20s97lyk&e=1&st=v3auaz5s&dl=1" target="_blank" class="btn btn-white">Download for Windows</a>
+                </div>
+            </section>
         </div>
     </main>
 
-    <section class="global-download-box">
-        <div class="download-app-card">
-            <h4>🚀 Get the Desktop Version</h4>
-            <p style="opacity: 0.9; font-size: 0.95rem;">
-Download our Windows App for offline processing anBatch Processing, Courier-wise Sorting, and [Qty > 1] Highlighting.
-            </p>
-            <a href="#" class="btn btn-white">Download for Windows</a>
-        </div>
-    </section>
-
     <script>
-        // NAVIGATION LOGIC
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
-            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-            
-            document.getElementById(pageId).classList.add('active-page');
-            const link = document.getElementById('link-' + pageId);
-            if(link) link.classList.add('active');
-            window.scrollTo(0,0);
+    // Navigation logic
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active-page');
+        const link = document.getElementById('link-' + pageId);
+        if(link) link.classList.add('active');
+        window.scrollTo(0,0);
+    }
+
+    // PDF.js Setup
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    const MM_TO_PT = 6;
+    const LABEL_PT = 100 * MM_TO_PT;
+
+    let container = new DataTransfer(); // Holds the selected files
+    let finalBlob = null;
+
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+    const fileListDiv = document.getElementById('fileList');
+
+    // Click to select files (Ignores clicks on Remove buttons)
+    dropZone.addEventListener('click', (e) => {
+        if (e.target.tagName !== 'BUTTON') {
+            fileInput.click();
         }
+    });
 
-        // PDF PROCESSING LOGIC
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-        const MM_TO_PT = 6;
-        const LABEL_PT = 100 * MM_TO_PT;
-        let container = new DataTransfer();
-        let finalBlob = null;
+    fileInput.addEventListener('change', () => {
+        addFiles(fileInput.files);
+        fileInput.value = ""; // Reset to allow re-selection of same file
+    });
 
-        const fileInput = document.getElementById('fileInput');
-        fileInput.addEventListener('change', () => {
-            for (let f of fileInput.files) container.items.add(f);
-            document.getElementById('fileText').innerHTML = `<strong>${container.files.length} Files Selected</strong>`;
-        });
+    // Drag and Drop Handlers
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropZone.style.borderColor = "#6366f1";
+        dropZone.style.background = "#eef2ff";
+    });
 
-        async function processFiles() {
-            if (container.files.length === 0) return alert("Please select files first");
-            const btn = document.getElementById('processBtn');
-            const loader = document.getElementById('loading');
-            const results = document.getElementById('resultsArea');
-            
-            btn.disabled = true;
-            loader.style.display = "block";
-            results.style.display = "none";
+    dropZone.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropZone.style.borderColor = "#cbd5e1";
+        dropZone.style.background = "";
+    });
 
-            try {
-                const finalDoc = await PDFLib.PDFDocument.create();
-                let totalLabels = 0;
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropZone.style.borderColor = "#cbd5e1";
+        dropZone.style.background = "";
+        if (e.dataTransfer.files.length > 0) {
+            addFiles(e.dataTransfer.files);
+        }
+    });
 
-                for (let file of container.files) {
-                    const buffer = await file.arrayBuffer();
-                    const pdfjsDoc = await pdfjsLib.getDocument({ data: buffer.slice(0) }).promise;
-                    const srcDoc = await PDFLib.PDFDocument.load(buffer.slice(0));
-
-                    for (let i = 0; i < pdfjsDoc.numPages; i++) {
-                        const page = await pdfjsDoc.getPage(i + 1);
-                        const textContent = await page.getTextContent();
-                        const textStr = textContent.items.map(item => item.str).join(' ').toLowerCase();
-
-                        // REMOVE SORTING: Skip pages that don't have label identifiers
-                        if (!textStr.includes("order") && !textStr.includes("id")) continue;
-
-                        // CROP & COPY
-                        const [copiedPage] = await finalDoc.copyPages(srcDoc, [i]);
-                        const { width, height } = copiedPage.getSize();
-                        copiedPage.setCropBox(0, height - LABEL_PT, width, LABEL_PT);
-                        finalDoc.addPage(copiedPage);
-                        totalLabels++;
-                    }
-                }
-
-                if (totalLabels === 0) {
-                    alert("No valid labels found in the selected files.");
-                } else {
-                    const finalBytes = await finalDoc.save();
-                    finalBlob = new Blob([finalBytes], { type: 'application/pdf' });
-                    document.getElementById('statTotal').innerText = totalLabels;
-                    results.style.display = 'block';
-                }
-
-            } catch (err) {
-                alert("Error: " + err.message);
-            } finally {
-                btn.disabled = false;
-                loader.style.display = "none";
+    // Add unique PDF files to container
+    function addFiles(files) {
+        const existingNames = Array.from(container.files).map(f => f.name);
+        for (let file of files) {
+            if (file.type === "application/pdf" && !existingNames.includes(file.name)) {
+                container.items.add(file);
             }
         }
+        updateFileUI();
+    }
 
-        function downloadFinal() {
-            if (!finalBlob) return;
-            const url = URL.createObjectURL(finalBlob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = "Cropped_Meesho_Labels.pdf";
-            a.click();
-            URL.revokeObjectURL(url);
+    // Update the UI list of selected files
+    function updateFileUI() {
+        const count = container.files.length;
+        document.getElementById('fileText').innerHTML = count > 0 ? 
+            `<strong>${count} Files Selected</strong>` : `Drag & Drop Meesho PDFs or Click`;
+
+        fileListDiv.innerHTML = "";
+        Array.from(container.files).forEach((file, index) => {
+            const row = document.createElement('div');
+            row.style = "display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; background:#fff; padding:8px; border-radius:8px; border:1px solid #e2e8f0;";
+            row.innerHTML = `
+                <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:80%;">${file.name}</span>
+                <button onclick="removeFile(event, ${index})" style="border:none; background:#fee2e2; color:#ef4444; border-radius:5px; cursor:pointer; padding:2px 10px; font-weight:bold;">✕</button>
+            `;
+            fileListDiv.appendChild(row);
+        });
+    }
+
+    // Remove file from container (Fixed: No file explorer opens)
+    function removeFile(event, index) {
+        event.preventDefault();
+        event.stopPropagation(); // Prevents click from bubbling to dropZone
+        
+        let newContainer = new DataTransfer();
+        Array.from(container.files).forEach((file, i) => {
+            if (i !== index) newContainer.items.add(file);
+        });
+        container = newContainer;
+        updateFileUI();
+    }
+
+    // Process all labels
+    async function processFiles() {
+        if (container.files.length === 0) return alert("Please select files first");
+
+        const btn = document.getElementById('processBtn');
+        const loader = document.getElementById('loading');
+        const results = document.getElementById('resultsArea');
+        
+        btn.disabled = true;
+        loader.style.display = "block";
+        results.style.display = "none";
+
+        try {
+            const finalDoc = await PDFLib.PDFDocument.create();
+            let totalLabels = 0;
+
+            for (let file of container.files) {
+                const buffer = await file.arrayBuffer();
+                const pdfjsDoc = await pdfjsLib.getDocument({ data: buffer.slice(0) }).promise;
+                const srcDoc = await PDFLib.PDFDocument.load(buffer.slice(0));
+
+                for (let i = 0; i < pdfjsDoc.numPages; i++) {
+                    const page = await pdfjsDoc.getPage(i + 1);
+                    const textContent = await page.getTextContent();
+                    const textStr = textContent.items.map(item => item.str).join(' ').toLowerCase();
+
+                    // Filter for Meesho labels (contains 'order id')
+                    if (!textStr.includes("order") && !textStr.includes("id")) continue;
+
+                    const [copiedPage] = await finalDoc.copyPages(srcDoc, [i]);
+                    const { width, height } = copiedPage.getSize();
+                    
+                    // Standard 4x4 Crop logic
+                    copiedPage.setCropBox(0, height - LABEL_PT, width, LABEL_PT);
+                    finalDoc.addPage(copiedPage);
+                    totalLabels++;
+                }
+            }
+
+            if (totalLabels === 0) {
+                alert("No valid labels found in selected files.");
+            } else {
+                const finalBytes = await finalDoc.save();
+                finalBlob = new Blob([finalBytes], { type: 'application/pdf' });
+                document.getElementById('statTotal').innerText = totalLabels;
+                results.style.display = 'block';
+            }
+        } catch (err) {
+            console.error(err);
+            alert("Error processing files: " + err.message);
+        } finally {
+            btn.disabled = false;
+            loader.style.display = "none";
         }
+    }
+
+    // Trigger download
+    function downloadFinal() {
+        if (!finalBlob) return;
+        const url = URL.createObjectURL(finalBlob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = "Processed_Meesho_Labels.pdf";
+        a.click();
+        URL.revokeObjectURL(url);
+    }
     </script>
 </body>
 </html>
