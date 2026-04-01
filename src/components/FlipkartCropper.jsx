@@ -71,7 +71,22 @@ export default function FlipkartCropper({ onBack }) {
         <h2 className="text-3xl font-bold mb-2">Flipkart Label Cropper</h2>
         <p className="text-slate-600 mb-8">Process Flipkart labels into 4x4 thermal format.</p>
 
-        <DropZone files={files} onFilesAdded={addFiles} onFileRemove={removeFile} />
+        <div
+  className="relative"
+  onClick={(e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    alert("🚧 Upload feature coming soon!");
+  }}
+>
+  <div className="pointer-events-none opacity-60">
+    <DropZone 
+      files={files} 
+      onFilesAdded={addFiles} 
+      onFileRemove={removeFile} 
+    />
+  </div>
+</div>
 
         <button
           onClick={processFlipkart}

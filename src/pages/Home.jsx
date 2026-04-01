@@ -9,20 +9,35 @@ export default function Home() {
       </div>
 
       {/* Desktop App Banner */}
-      <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-3xl p-12 text-center">
-        <div className="text-4xl mb-4">🚀</div>
-        <h3 className="text-3xl font-semibold mb-3">Get the Desktop Version</h3>
-        <p className="text-slate-300 mb-8 max-w-md mx-auto">
-          Offline processing, advanced sorting & highlighting features
-        </p>
-        <a 
-          href="https://www.dropbox.com/scl/fi/gb7pgkhh0wjxxx5rbdyt4/TechKey-Seller-Desk-1.0.0.exe?rlkey=8i8zxhs1ptu8ki2n3kdxr14gd&st=kkozys7v&dl=0"
-          target="_blank"
-          className="inline-block bg-white text-slate-900 font-bold px-10 py-4 rounded-2xl hover:bg-slate-100 transition text-lg"
-        >
-          Download for Windows
-        </a>
-      </div>
+    <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-3xl p-12 text-center">
+  <div className="text-4xl mb-4">🚀</div>
+  <h3 className="text-3xl font-semibold mb-3">Get the Desktop Version</h3>
+  <p className="text-slate-300 mb-8 max-w-md mx-auto">
+    Offline processing, advanced sorting & highlighting features
+  </p>
+
+  <div className="flex flex-col md:flex-row gap-4 justify-center">
+    
+    {/* Windows 10/11 64-bit */}
+    <a 
+      href="https://your-link-win10-64.exe"
+      target="_blank"
+      className="bg-white text-slate-900 font-bold px-8 py-4 rounded-2xl hover:bg-slate-100 transition text-lg"
+    >
+      Download Windows 10/11 (64-bit)
+    </a>
+
+    {/* Windows 7 32-bit */}
+    <a 
+      href="https://your-link-win7-32.exe"
+      target="_blank"
+      className="bg-slate-700 text-white font-bold px-8 py-4 rounded-2xl hover:bg-slate-600 transition text-lg"
+    >
+      Download Windows 7 (32-bit)
+    </a>
+
+  </div>
+</div>
 
       <div className="grid md:grid-cols-2 gap-8">
         <a href="/meesho" className="group">
