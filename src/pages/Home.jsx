@@ -20,7 +20,7 @@ export default function Home() {
     
     {/* Windows 10/11 64-bit */}
     <a 
-      href="https://your-link-win10-64.exe"
+      href="https://www.dropbox.com/scl/fi/oedaqmr7n12ifv6ddna2n/TechKey-Seller-Desk-1.0.0.exe?rlkey=4r7ugwxf6r2z5fc4v0jknni4i&st=g55nh5tb&dl=1"
       target="_blank"
       className="bg-white text-slate-900 font-bold px-8 py-4 rounded-2xl hover:bg-slate-100 transition text-lg"
     >
@@ -29,7 +29,7 @@ export default function Home() {
 
     {/* Windows 7 32-bit */}
     <a 
-      href="https://your-link-win7-32.exe"
+      href="https://www.dropbox.com/scl/fi/3ujligxfql32iznrvd2jd/TechKey_Seller_Desk_1.0.0.exe?rlkey=1vufplxo088etf47ou4safjmr&st=5qm9f587&dl=1"
       target="_blank"
       className="bg-slate-700 text-white font-bold px-8 py-4 rounded-2xl hover:bg-slate-600 transition text-lg"
     >
