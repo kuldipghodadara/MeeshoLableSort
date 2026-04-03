@@ -5,15 +5,23 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center gap-8">
           
           {/* Left - Brand */}
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-indigo-600 rounded-2xl flex items-center justify-center text-white font-bold text-xl">
-              T
-            </div>
-            <div>
-              <h3 className="font-bold text-xl text-slate-900">TechKey Seller Desk</h3>
-              <p className="text-sm text-slate-500">Label Solutions for Indian Sellers</p>
-            </div>
-          </div>
+         <div className="flex items-center gap-3">
+  <div className="w-9 h-9 flex items-center justify-center">
+    <img
+      src="/favicon.svg"
+      alt="TechKey Logo"
+      className="w-full h-full object-contain"
+    />
+  </div>
+  <div>
+    <h3 className="font-bold text-xl text-slate-900">
+      TechKey Seller Desk
+    </h3>
+    <p className="text-sm text-slate-500">
+      Label Solutions for Indian Sellers
+    </p>
+  </div>
+</div>
 
           {/* Center - Links */}
           <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm text-slate-600">
